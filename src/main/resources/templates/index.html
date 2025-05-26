@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contacts</title>
+</head>
+<body>
+<form action="/contacts" method="get">
+    <input type="text" name="q" placeholder="Search contacts">
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    <li th:each="contact : ${contacts}">
+        <span th:text="${contact.first}">Contact First Name</span><span th:text="${contact.last}">Contact Last Name</span>
+    </li>
+</ul>
+</body>
+</html>
