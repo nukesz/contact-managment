@@ -20,9 +20,9 @@ public class ContactController {
     public String getContacts(@RequestParam(value = "q", required = false) String search, Model model) {
         List<Contact> contacts;
         if (search != null && !search.isEmpty()) {
-            contacts = contactService.search(search);  // <2> Search
+            contacts = contactService.search(search);
         } else {
-            contacts = contactService.getAll();        // <3> Get all
+            contacts = contactService.getAll();
         }
 
         model.addAttribute("contacts", contacts);

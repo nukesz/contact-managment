@@ -10,8 +10,18 @@
 </form>
 
 <ul>
-    <li th:each="contact : ${contacts}">
-        <span th:text="${contact.first}">Contact First Name</span><span th:text="${contact.last}">Contact Last Name</span>
+    <li th:each="contact : ${contacts}" style="margin-bottom: 1em; padding: 1em; border: 1px solid #ddd; border-radius: 8px;">
+        <div>
+            <strong th:text="${contact.first} + ' ' + ${contact.last}">Full Name</strong>
+        </div>
+        <div>
+            <span><strong>Phone:</strong></span>
+            <span th:text="${contact.phone}">Phone number</span>
+        </div>
+        <div>
+            <span><strong>Email:</strong></span>
+            <span th:text="${contact.email}">Email address</span>
+        </div>
     </li>
 </ul>
 </body>
