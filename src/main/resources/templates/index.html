@@ -4,26 +4,38 @@
     <title>Contacts</title>
 </head>
 <body>
+<h1>A Demo Contacts Application</h1>
 <form th:action="@{/contacts}" method="get">
     <label for="search">Search Term</label>
-    <input id="search" type="search" name="q" th:value="${q} ?: ''" />
-    <input type="submit" value="Search" />
+    <input id="search" type="search" name="q" th:value="${q} ?: ''"/>
+    <input type="submit" value="Search"/>
 </form>
-
-<ul>
-    <li th:each="contact : ${contacts}" style="margin-bottom: 1em; padding: 1em; border: 1px solid #ddd; border-radius: 8px;">
-        <div>
-            <strong th:text="${contact.first} + ' ' + ${contact.last}">Full Name</strong>
-        </div>
-        <div>
-            <span><strong>Phone:</strong></span>
-            <span th:text="${contact.phone}">Phone number</span>
-        </div>
-        <div>
-            <span><strong>Email:</strong></span>
-            <span th:text="${contact.email}">Email address</span>
-        </div>
-    </li>
-</ul>
+<hr/>
+<table>
+    <thead>
+    <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contact : ${contacts}">
+        <td th:text="${contact.first}">First</td>
+        <td th:text="${contact.last}">Last</td>
+        <td th:text="${contact.phone}">Phone</td>
+        <td th:text="${contact.email}">Email</td>
+        <td>
+            <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
+            <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <a th:href="@{'/contacts/new'}">Add Contact</a>
+</p>
 </body>
 </html>

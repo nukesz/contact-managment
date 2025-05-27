@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,14 +34,46 @@ public class ContactService {
         String lowerQuery = query.toLowerCase();
         return contacts.stream()
                 .filter(c ->
-                        safeContains(c.first(), lowerQuery) ||
-                                safeContains(c.last(), lowerQuery) ||
-                                safeContains(c.email(), lowerQuery) ||
-                                safeContains(c.phone(), lowerQuery))
+                        safeContains(c.getFirst(), lowerQuery) ||
+                                safeContains(c.getLast(), lowerQuery) ||
+                                safeContains(c.getEmail(), lowerQuery) ||
+                                safeContains(c.getPhone(), lowerQuery))
                 .collect(Collectors.toList());
     }
 
     private boolean safeContains(String field, String query) {
         return field != null && field.toLowerCase().contains(query);
+    }
+
+    public boolean save(Contact contact) {
+        contact.getErrors().clear();
+        if (!validate(contact)) {
+            return false;
+        }
+
+        long maxId;
+        if (contact.getId() == null) {
+            if (contacts.isEmpty()) {
+                maxId = 1L;
+            } else {
+                maxId = contacts.stream().map(Contact::getId).max(Long::compareTo).orElse(1L);
+            }
+            contact.setId(maxId + 1);
+        }
+        contacts.add(contact);
+        return true;
+    }
+
+    private boolean validate(Contact contact) {
+        if (contact.getEmail() == null || contact.getEmail().isBlank()) {
+            contact.getErrors().put("email", "Email Required");
+        } else {
+            boolean duplicate = contacts.stream()
+                    .anyMatch(c -> !Objects.equals(c.getId(), contact.getId()) && contact.getEmail().equals(c.getEmail()));
+            if (duplicate) {
+                contact.getErrors().put("email", "Email Must Be Unique");
+            }
+        }
+        return contact.getErrors().isEmpty();
     }
 }
