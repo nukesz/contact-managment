@@ -1,14 +1,13 @@
 package com.nukesz.github.contact;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class IndexController {
+public class RootController {
 
     @GetMapping("/")
-    public String indexForm(Model model) {
-        return "index";
+    public String redirectToContacts() {
+        return "redirect:/contacts";
     }
 }
