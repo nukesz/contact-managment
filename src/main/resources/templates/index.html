@@ -4,9 +4,10 @@
     <title>Contacts</title>
 </head>
 <body>
-<form action="/contacts" method="get">
-    <input type="text" name="q" placeholder="Search contacts">
-    <button type="submit">Search</button>
+<form th:action="@{/contacts}" method="get">
+    <label for="search">Search Term</label>
+    <input id="search" type="search" name="q" th:value="${q} ?: ''" />
+    <input type="submit" value="Search" />
 </form>
 
 <ul>

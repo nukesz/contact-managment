@@ -26,6 +26,7 @@ public class ContactController {
         }
 
         model.addAttribute("contacts", contacts);
+        model.addAttribute("q", search != null ? search : "");
         return "index";  // Thymeleaf template: src/main/resources/templates/index.html
     }
 }
