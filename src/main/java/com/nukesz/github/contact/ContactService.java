@@ -41,6 +41,10 @@ public class ContactService {
                 .collect(Collectors.toList());
     }
 
+    public Contact find(Long contactId) {
+        return contacts.stream().filter(contact -> contact.getId().equals(contactId)).findFirst().orElseThrow();
+    }
+
     private boolean safeContains(String field, String query) {
         return field != null && field.toLowerCase().contains(query);
     }

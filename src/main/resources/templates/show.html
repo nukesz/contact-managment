@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Contact</title>
+</head>
+<body>
+<h1>Contact Details</h1>
+<ul>
+    <li><strong>First:</strong> <span th:text="${contact.first}">First Name</span></li>
+    <li><strong>Last:</strong> <span th:text="${contact.last}">Last Name</span></li>
+    <li><strong>Phone:</strong> <span th:text="${contact.phone}">Phone</span></li>
+    <li><strong>Email:</strong> <span th:text="${contact.email}">Email</span></li>
+</ul>
+</body>
+</html>

@@ -2,10 +2,7 @@ package com.nukesz.github.contact;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -37,6 +34,13 @@ public class ContactController {
     public String showNewContactForm(Model model) {
         model.addAttribute("contact", new Contact());
         return "new";
+    }
+
+    @GetMapping("/contacts/{contactId}")
+    public String viewContact(@PathVariable("contactId") Long contactId, Model model) {
+        Contact contact = contactService.find(contactId);
+        model.addAttribute("contact", contact);
+        return "show";
     }
 
     @PostMapping("/contacts/new")
