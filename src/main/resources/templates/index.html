@@ -2,40 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Contacts</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body>
-<h1>A Demo Contacts Application</h1>
-<form th:action="@{/contacts}" method="get">
-    <label for="search">Search Term</label>
-    <input id="search" type="search" name="q" th:value="${q} ?: ''"/>
-    <input type="submit" value="Search"/>
-</form>
-<hr/>
-<table>
-    <thead>
-    <tr>
-        <th>First</th>
-        <th>Last</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="contact : ${contacts}">
-        <td th:text="${contact.first}">First</td>
-        <td th:text="${contact.last}">Last</td>
-        <td th:text="${contact.phone}">Phone</td>
-        <td th:text="${contact.email}">Email</td>
-        <td>
-            <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
-            <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<p>
-    <a th:href="@{'/contacts/new'}">Add Contact</a>
-</p>
+<div id="main">
+    <h1>A Demo Contacts Application</h1>
+    <form th:action="@{/contacts}" method="get">
+        <label for="search">Search Term</label>
+        <input id="search" type="search" name="q" th:value="${q} ?: ''"/>
+        <button hx-get="/contacts" hx-target="#main" hx-include="#search" hx-push-url="true">
+            Search
+        </button>
+    </form>
+    <hr/>
+    <table>
+        <thead>
+        <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contact : ${contacts}">
+            <td th:text="${contact.first}">First</td>
+            <td th:text="${contact.last}">Last</td>
+            <td th:text="${contact.phone}">Phone</td>
+            <td th:text="${contact.email}">Email</td>
+            <td>
+                <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
+                <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a th:href="@{'/contacts/new'}">Add Contact</a>
+    </p>
+</div>
 </body>
 </html>

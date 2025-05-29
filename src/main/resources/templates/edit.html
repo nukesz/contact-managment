@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Contact</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body>
 <form th:action="@{'/contacts/' + ${contact.id} + '/edit'}" method="post" th:object="${contact}">
