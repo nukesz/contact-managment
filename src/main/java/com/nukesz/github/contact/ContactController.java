@@ -43,6 +43,13 @@ public class ContactController {
         return "show";
     }
 
+    @GetMapping("/contacts/{contactId}/edit")
+    public String showEditContactForm(@PathVariable("contactId") Long contactId, Model model) {
+        Contact contact = contactService.find(contactId);
+        model.addAttribute("contact", contact);
+        return "edit";
+    }
+
     @PostMapping("/contacts/new")
     public String createContact(@ModelAttribute Contact contact, Model model, RedirectAttributes redirectAttributes) {
         boolean success = contactService.save(contact);
@@ -52,6 +59,24 @@ public class ContactController {
         } else {
             model.addAttribute("contact", contact);
             return "new";
+        }
+    }
+
+    @PostMapping("/contacts/{contactId}/edit")
+    public String editContact(@PathVariable("contactId") Long contactId, @ModelAttribute Contact contact, Model model,
+                              RedirectAttributes redirectAttributes) {
+        Contact oldContact = contactService.find(contactId);
+        oldContact.setFirst(contact.getFirst());
+        oldContact.setLast(contact.getLast());
+        oldContact.setPhone(contact.getPhone());
+        oldContact.setEmail(contact.getEmail());
+        boolean success = contactService.save(oldContact);
+        if (success) {
+            redirectAttributes.addFlashAttribute("message", "Updated Contact!");
+            return "redirect:/contacts/" + contactId;
+        } else {
+            model.addAttribute("contact", contact);
+            return "edit";
         }
     }
 }

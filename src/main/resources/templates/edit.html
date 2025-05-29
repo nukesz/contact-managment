@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Contact</title>
+</head>
+<body>
+<form th:action="@{'/contacts/' + ${contact.id} + '/edit'}" method="post" th:object="${contact}">
+    <fieldset>
+        <legend>Contact Values</legend>
+        <p>
+            <label for="email">Email</label>
+            <input name="email" id="email" type="email" placeholder="Email" th:field="*{email}" />
+            <span class="error" th:if="${contact.errors['email']}" th:text="${contact.errors['email']}"></span>
+        </p>
+        <p>
+            <label for="first_name">First Name</label>
+            <input name="first_name" id="first_name" type="text" placeholder="First Name" th:field="*{first}">
+            <span class="error" th:if="${contact.errors['first']}" th:text="${contact.errors['first']}"></span>
+        </p>
+        <p>
+            <label for="last_name">Last Name</label>
+            <input name="last_name" id="last_name" type="text" placeholder="Last Name" th:field="*{last}">
+            <span class="error" th:if="${contact.errors['last']}" th:text="${contact.errors['last']}"></span>
+        </p>
+        <p>
+            <label for="phone">Phone</label>
+            <input name="phone" id="phone" type="text" placeholder="Phone" th:field="*{phone}">
+            <span class="error" th:if="${contact.errors['phone']}" th:text="${contact.errors['phone']}"></span>
+        </p>
+    <button>Save</button>
+    </fieldset>
+</form>
+<form th:action="@{'/contacts/' + ${contact.id} + '/delete'}" method="post">
+    <button>Delete Contact</button>
+</form>
+<p>
+    <a href="/contacts">Back</a>
+</p>
+</body>
+</html>

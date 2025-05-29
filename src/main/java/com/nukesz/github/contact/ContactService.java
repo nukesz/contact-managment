@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
@@ -17,12 +18,26 @@ public class ContactService {
 
     @PostConstruct
     public void init() {
+        loadDb();
+    }
+
+    private void loadDb() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             InputStream inputStream = getClass().getResourceAsStream("/contacts.json");
             contacts = objectMapper.readValue(inputStream, new TypeReference<>() {});
         } catch (Exception e) {
             throw new RuntimeException("Failed to load contacts.json", e);
+        }
+    }
+
+    public void saveDb() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter()
+                    .writeValue(new File("src/main/resources/contacts.json"), contacts);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save contacts.json", e);
         }
     }
 
@@ -63,8 +78,9 @@ public class ContactService {
                 maxId = contacts.stream().map(Contact::getId).max(Long::compareTo).orElse(1L);
             }
             contact.setId(maxId + 1);
+            contacts.add(contact);
         }
-        contacts.add(contact);
+        saveDb();
         return true;
     }
 
