@@ -84,6 +84,12 @@ public class ContactService {
         return true;
     }
 
+
+    public void delete(Contact contact) {
+         contacts.removeIf(c -> c.getId().equals(contact.getId()));
+         saveDb();
+    }
+
     private boolean validate(Contact contact) {
         if (contact.getEmail() == null || contact.getEmail().isBlank()) {
             contact.getErrors().put("email", "Email Required");
@@ -96,4 +102,5 @@ public class ContactService {
         }
         return contact.getErrors().isEmpty();
     }
+
 }

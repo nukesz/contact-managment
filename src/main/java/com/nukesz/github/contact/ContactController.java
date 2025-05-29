@@ -79,4 +79,12 @@ public class ContactController {
             return "edit";
         }
     }
+
+    @PostMapping("/contacts/{contactId}/delete")
+    public String deleteContact(@PathVariable("contactId") Long contactId, Model model, RedirectAttributes redirectAttributes) {
+        Contact contact = contactService.find(contactId);
+        contactService.delete(contact);
+        redirectAttributes.addFlashAttribute("message", "Deleted Contact!");
+        return "redirect:/contacts";
+    }
 }
