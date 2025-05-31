@@ -1,8 +1,11 @@
 package com.nukesz.github.contact;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -80,11 +83,13 @@ public class ContactController {
         }
     }
 
-    @PostMapping("/contacts/{contactId}/delete")
-    public String deleteContact(@PathVariable("contactId") Long contactId, Model model, RedirectAttributes redirectAttributes) {
+    @DeleteMapping("/contacts/{contactId}")
+    public String deleteContact(@PathVariable("contactId") Long contactId, HttpServletRequest request,
+                                RedirectAttributes redirectAttributes) {
         Contact contact = contactService.find(contactId);
         contactService.delete(contact);
         redirectAttributes.addFlashAttribute("message", "Deleted Contact!");
+        request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER);
         return "redirect:/contacts";
     }
 }

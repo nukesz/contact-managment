@@ -4,7 +4,7 @@
     <title>Contacts</title>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body>
+<body hx-boost="true">
 <div id="main">
     <h1>A Demo Contacts Application</h1>
     <form th:action="@{/contacts}" method="get">

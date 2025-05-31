@@ -4,7 +4,7 @@
     <title>Show Contact</title>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body>
+<body hx-boost="true">
 <h1 th:text="${contact.first + ' ' + contact.last}">First Last</h1>
 
 <div>

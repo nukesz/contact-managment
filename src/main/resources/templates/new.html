@@ -4,7 +4,7 @@
     <title>New Contact</title>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body>
+<body hx-boost="true">
 <form th:action="@{/contacts/new}" method="post" th:object="${contact}">
     <fieldset>
         <legend>Contact Values</legend>
