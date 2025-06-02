@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -58,7 +57,7 @@ public class ContactService {
     }
 
     public Contact find(Long contactId) {
-        return contacts.stream().filter(contact -> contact.getId().equals(contactId)).findFirst().orElseThrow();
+        return contacts.stream().filter(contact -> contact.getId().equals(contactId)).findFirst().map(Contact::copy).orElseThrow();
     }
 
     private boolean safeContains(String field, String query) {
@@ -92,7 +91,6 @@ public class ContactService {
     }
 
     public boolean validate(Contact contact) {
-        contact.getErrors().clear();
         if (contact.getEmail() == null || contact.getEmail().isBlank()) {
             contact.getErrors().put("email", "Email Required");
         } else {

@@ -29,6 +29,10 @@ public final class Contact {
         this.errors = errors;
     }
 
+    public Contact copy() {
+        return new Contact(id, first, last, phone, email, new HashMap<>(errors));
+    }
+
     public Long getId() {
         return id;
     }
