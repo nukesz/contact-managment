@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -90,7 +91,8 @@ public class ContactService {
          saveDb();
     }
 
-    private boolean validate(Contact contact) {
+    public boolean validate(Contact contact) {
+        contact.getErrors().clear();
         if (contact.getEmail() == null || contact.getEmail().isBlank()) {
             contact.getErrors().put("email", "Email Required");
         } else {
@@ -102,5 +104,4 @@ public class ContactService {
         }
         return contact.getErrors().isEmpty();
     }
-
 }

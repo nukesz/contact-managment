@@ -53,6 +53,15 @@ public class ContactController {
         return "edit";
     }
 
+    @GetMapping("/contacts/{contactId}/email")
+    @ResponseBody
+    public String getContactEmail(@PathVariable("contactId") Long contactId, @RequestParam(name = "email") String email) {
+        Contact contact = contactService.find(contactId);
+        contact.setEmail(email);
+        contactService.validate(contact);
+        return contact.getErrors().getOrDefault("email", "");
+    }
+
     @PostMapping("/contacts/new")
     public String createContact(@ModelAttribute Contact contact, Model model, RedirectAttributes redirectAttributes) {
         boolean success = contactService.save(contact);
