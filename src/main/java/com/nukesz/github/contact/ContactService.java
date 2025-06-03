@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -41,8 +43,16 @@ public class ContactService {
         }
     }
 
-    public List<Contact> getAll() {
-        return contacts;
+    public List<Contact> getAll(int page) {
+        int pageStart = (page - 1) * 10;
+        int pageEnd = pageStart + 10;
+        if (pageStart >= contacts.size()) {
+            return Collections.emptyList();
+        }
+        if (pageEnd > contacts.size()) {
+            return contacts.subList(pageStart, contacts.size() - 1);
+        }
+        return contacts.subList(pageStart, pageEnd);
     }
 
     public List<Contact> search(String query) {

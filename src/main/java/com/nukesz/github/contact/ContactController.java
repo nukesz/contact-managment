@@ -20,15 +20,18 @@ public class ContactController {
     }
 
     @GetMapping("/contacts")
-    public String getContacts(@RequestParam(value = "q", required = false) String search, Model model) {
+    public String getContacts(@RequestParam(value = "q", required = false) String search,
+                              @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                              Model model) {
         List<Contact> contacts;
         if (search != null && !search.isEmpty()) {
             contacts = contactService.search(search);
         } else {
-            contacts = contactService.getAll();
+            contacts = contactService.getAll(page);
         }
 
         model.addAttribute("contacts", contacts);
+        model.addAttribute("page", page);
         model.addAttribute("q", search != null ? search : "");
         return "index";
     }

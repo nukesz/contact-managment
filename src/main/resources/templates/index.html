@@ -40,6 +40,12 @@
         </tr>
         </tbody>
     </table>
+    <div>
+      <span style="float: left">
+          <a th:if="${page > 1}" th:href="@{'/contacts?page=' + ${page - 1}}">Previous</a>
+          <a th:if="${contacts.size() == 10}" th:href="@{'/contacts?page=' + ${page + 1}}">Next</a>
+      </span>
+    </div>
     <p>
         <a th:href="@{'/contacts/new'}">Add Contact</a>
     </p>
