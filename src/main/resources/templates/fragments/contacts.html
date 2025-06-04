@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contacts fragment</title>
+</head>
+<body>
+    <tr th:fragment="rows" th:each="contact : ${contacts}">
+        <td th:text="${contact.first}">First</td>
+        <td th:text="${contact.last}">Last</td>
+        <td th:text="${contact.phone}">Phone</td>
+        <td th:text="${contact.email}">Email</td>
+        <td>
+            <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
+            <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
+        </td>
+    </tr>
+</body>
+</html>

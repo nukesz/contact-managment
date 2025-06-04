@@ -22,10 +22,15 @@ public class ContactController {
     @GetMapping("/contacts")
     public String getContacts(@RequestParam(value = "q", required = false) String search,
                               @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                              @RequestHeader(value = "HX-Trigger", required = false) String hxTrigger,
                               Model model) {
         List<Contact> contacts;
-        if (search != null && !search.isEmpty()) {
+        if (search != null) {
             contacts = contactService.search(search);
+            if ("search".equals(hxTrigger)) {
+                model.addAttribute("contacts", contacts);
+                return "fragments/contacts :: rows";
+            }
         } else {
             contacts = contactService.getAll(page);
         }

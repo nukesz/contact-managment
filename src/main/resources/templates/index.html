@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Contacts</title>
     <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3">
@@ -15,7 +15,6 @@
                th:value="${q} ?: ''"
                hx-get="/contacts"
                hx-target="tbody"
-               hx-select="tbody tr"
                hx-push-url="true"
                hx-trigger="search, keyup delay:200ms changed"
         />
@@ -33,16 +32,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="contact : ${contacts}">
-            <td th:text="${contact.first}">First</td>
-            <td th:text="${contact.last}">Last</td>
-            <td th:text="${contact.phone}">Phone</td>
-            <td th:text="${contact.email}">Email</td>
-            <td>
-                <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
-                <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
-            </td>
-        </tr>
+        <tr th:replace="fragments/contacts :: rows"></tr>
         <tr>
             <td th:if="${contacts.size() == 10}" colspan="5" style="text-align: center">
                 <span hx-target="closest tr"
