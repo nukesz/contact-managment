@@ -14,7 +14,8 @@
         <input id="search" type="search" name="q"
                th:value="${q} ?: ''"
                hx-get="/contacts"
-               hx-target="#main"
+               hx-target="tbody"
+               hx-select="tbody tr"
                hx-push-url="true"
                hx-trigger="search, keyup delay:200ms changed"
         />
