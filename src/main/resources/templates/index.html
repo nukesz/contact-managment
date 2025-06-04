@@ -9,12 +9,16 @@
 <body hx-boost="true">
 <div id="main">
     <h1>A Demo Contacts Application</h1>
-    <form th:action="@{/contacts}" method="get">
+    <form action="/contacts" method="get" class="tool-bar">
         <label for="search">Search Term</label>
-        <input id="search" type="search" name="q" th:value="${q} ?: ''"/>
-        <button hx-get="/contacts" hx-target="#main" hx-include="#search" hx-push-url="true">
-            Search
-        </button>
+        <input id="search" type="search" name="q"
+               th:value="${q} ?: ''"
+               hx-get="/contacts"
+               hx-target="#main"
+               hx-push-url="true"
+               hx-trigger="search, keyup delay:200ms changed"
+        />
+        <input type="submit" value="Search"/>
     </form>
     <hr/>
     <table>
