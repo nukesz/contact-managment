@@ -24,6 +24,8 @@ public class ContactController {
                               @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                               @RequestHeader(value = "HX-Trigger", required = false) String hxTrigger,
                               Model model) {
+        var count = contactService.count();
+        model.addAttribute("count", count);
         List<Contact> contacts;
         if (search != null) {
             contacts = contactService.search(search);

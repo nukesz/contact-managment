@@ -111,4 +111,8 @@ public class ContactService {
         }
         return contact.getErrors().isEmpty();
     }
+
+    public int count() {
+        return contacts.size();
+    }
 }
