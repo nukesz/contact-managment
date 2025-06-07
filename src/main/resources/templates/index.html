@@ -52,7 +52,9 @@
     </table>
     <p>
         <a th:href="@{'/contacts/new'}">Add Contact</a>
-        <span hx-get="/contacts/count" hx-trigger="load"></span>
+        <span hx-get="/contacts/count" hx-trigger="load">
+            <img id="spinner" class="htmx-indicator" src="/img/spinning-circles.svg"/>
+        </span>
     </p>
 </div>
 </body>
