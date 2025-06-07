@@ -16,8 +16,12 @@
                hx-get="/contacts"
                hx-target="tbody"
                hx-push-url="true"
+               hx-indicator="#spinner"
                hx-trigger="search, keyup delay:200ms changed"
         />
+        <img id="spinner" class="htmx-indicator"
+             src="/img/spinning-circles.svg"
+             alt="Request In Flight..."/>
         <input type="submit" value="Search"/>
     </form>
     <hr/>
