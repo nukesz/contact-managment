@@ -24,8 +24,6 @@ public class ContactController {
                               @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                               @RequestHeader(value = "HX-Trigger", required = false) String hxTrigger,
                               Model model) {
-        var count = contactService.count();
-        model.addAttribute("count", count);
         List<Contact> contacts;
         if (search != null) {
             contacts = contactService.search(search);
@@ -70,6 +68,13 @@ public class ContactController {
         contact.setEmail(email);
         contactService.validate(contact);
         return contact.getErrors().getOrDefault("email", "");
+    }
+
+    @GetMapping("/contacts/count")
+    @ResponseBody
+    public String getContactsCount() {
+        var count = contactService.count();
+        return "(" + count + " total Counts)";
     }
 
     @PostMapping("/contacts/new")

@@ -52,7 +52,7 @@
     </table>
     <p>
         <a th:href="@{'/contacts/new'}">Add Contact</a>
-        <span th:text="${'(' + count + ' total Contacts)'}">0 total Contacts)</span>
+        <span hx-get="/contacts/count" hx-trigger="load"></span>
     </p>
 </div>
 </body>
