@@ -2,12 +2,13 @@ package com.nukesz.github.contact;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -108,12 +109,17 @@ public class ContactController {
     }
 
     @DeleteMapping("/contacts/{contactId}")
-    public String deleteContact(@PathVariable("contactId") Long contactId, HttpServletRequest request,
-                                RedirectAttributes redirectAttributes) {
+    public ResponseEntity<?> deleteContact(@PathVariable("contactId") Long contactId, HttpServletRequest request,
+                                           @RequestHeader(value = "HX-Trigger", required = false) String hxTrigger,
+                                           RedirectAttributes redirectAttributes) {
         Contact contact = contactService.find(contactId);
         contactService.delete(contact);
-        redirectAttributes.addFlashAttribute("message", "Deleted Contact!");
-        request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.SEE_OTHER);
-        return "redirect:/contacts";
+        if ("delete-btn".equals(hxTrigger)) {
+            redirectAttributes.addFlashAttribute("message", "Deleted Contact!");
+            URI redirectUri = URI.create("/contacts");
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(redirectUri).build();
+        } else {
+            return ResponseEntity.ok().build();
+        }
     }
 }
