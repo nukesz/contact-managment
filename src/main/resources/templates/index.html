@@ -19,7 +19,7 @@
                hx-indicator="#spinner"
                hx-trigger="search, keyup delay:200ms changed"
         />
-        <img id="spinner" class="htmx-indicator"
+        <img id="search-spinner" class="htmx-indicator"
              src="/img/spinning-circles.svg"
              alt="Request In Flight..."/>
         <input type="submit" value="Search"/>
@@ -52,8 +52,8 @@
     </table>
     <p>
         <a th:href="@{'/contacts/new'}">Add Contact</a>
-        <span hx-get="/contacts/count" hx-trigger="load">
-            <img id="spinner" class="htmx-indicator" src="/img/spinning-circles.svg"/>
+        <span hx-get="/contacts/count" hx-trigger="revealed">
+            <img id="count-spinner" class="htmx-indicator" src="/img/spinning-circles.svg"/>
         </span>
     </p>
 </div>

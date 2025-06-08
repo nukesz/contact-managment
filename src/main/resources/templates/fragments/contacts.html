@@ -12,6 +12,9 @@
         <td>
             <a th:href="@{'/contacts/' + ${contact.id} + '/edit'}">Edit</a>
             <a th:href="@{'/contacts/' + ${contact.id}}">View</a>
+            <a href="#" th:attr="hx-delete=@{'/contacts/' + ${contact.id}}"
+               hx-confirm="Are you sure you want to delete this contact?"
+               hx-target="body">Delete</a>
         </td>
     </tr>
 </body>
