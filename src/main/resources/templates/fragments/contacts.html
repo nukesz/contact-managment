@@ -5,6 +5,11 @@
 </head>
 <body>
     <tr th:fragment="rows" th:each="contact : ${contacts}">
+        <td>
+            <div class="checkbox-column">
+                <input type="checkbox" name="selected_contact_ids" th:value="${contact.id}">
+            </div>
+        </td>
         <td th:text="${contact.first}">First</td>
         <td th:text="${contact.last}">Last</td>
         <td th:text="${contact.phone}">Phone</td>
