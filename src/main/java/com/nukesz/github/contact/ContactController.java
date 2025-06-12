@@ -108,6 +108,20 @@ public class ContactController {
         }
     }
 
+    @DeleteMapping("/contacts")
+    public String deleteContacts(@RequestParam(name = "selected_contact_ids") List<Long> contactIds,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+        for (Long contactId : contactIds) {
+            Contact contact = contactService.find(contactId);
+            contactService.delete(contact);
+        }
+        redirectAttributes.addFlashAttribute("message", "Deleted Contacts!");
+        List<Contact> contacts = contactService.getAll(1);
+        model.addAttribute("contacts", contacts);
+        return "index";
+    }
+
     @DeleteMapping("/contacts/{contactId}")
     public ResponseEntity<?> deleteContact(@PathVariable("contactId") Long contactId, HttpServletRequest request,
                                            @RequestHeader(value = "HX-Trigger", required = false) String hxTrigger,

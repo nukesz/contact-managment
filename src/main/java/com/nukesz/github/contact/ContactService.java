@@ -49,7 +49,7 @@ public class ContactService {
             return Collections.emptyList();
         }
         if (pageEnd > contacts.size()) {
-            return contacts.subList(pageStart, contacts.size() - 1);
+            return contacts.subList(pageStart, contacts.size());
         }
         return contacts.subList(pageStart, pageEnd);
     }
