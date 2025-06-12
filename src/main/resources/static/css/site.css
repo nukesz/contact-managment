@@ -8,5 +8,6 @@ tr.htmx-swapping {
   transition: opacity 1s ease-out;
 }
 
-checkbox-column {
+.checkbox-column {
+  vertical-align: middle;
 }
